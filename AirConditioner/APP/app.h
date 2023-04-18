@@ -12,6 +12,9 @@
 #include "../ECUAL/lm35/lm35.h"
 #include "../ECUAL/keypad/keypad.h"
 #include "../MCAL/timer/timer.h"
+#include "../ECUAL/lcd/LCD_Interface.h"
+#include "../ECUAL/buzzer/buzzer.h"
+
 
 
 #define WELCOMING					0

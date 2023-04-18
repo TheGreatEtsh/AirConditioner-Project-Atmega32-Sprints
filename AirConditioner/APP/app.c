@@ -8,11 +8,16 @@
 #include "app.h"
 
 u8 u8_g_applicationState = 0;
-
+u8 u8_g_defTemp=20;
 
 void APP_initModules(void)
 {
-	
+	LCD_Init();
+	TIMER_init(TIMER_2);
+	ADC_init();
+	BUZZER_init(BUZZER_0);
+KEYPAD_init();
+LM35_init();
 }
 
 
@@ -20,18 +25,76 @@ void APP_initModules(void)
 void APP_superLoop (void)
 {
 	u8 keypadPressed = 0;
+	u8 welcomeMassage[10]="WELCOME";
+	u8 defaultTemp[30]="The Default Temp is 20";
+	u8 chooseTemp[30]="Choose the Temp:";
+	u8 rangeTemp[30]="The Range of  Temp is 18 to 35";
+	u8 currentTemp[30]="The current Temp is :";
+	u8 resetTemp[30]=" Temp is reset to 20";
 	
 	while (1)
 	{
 		switch(u8_g_applicationState)
 		{
 			case WELCOMING:	
+	LCD_WriteString(welcomeMassage);
+	TIMER_start(TIMER_2);
+	TIMER_delay(TIMER_2,1000);
+	LCD_Clear();
+	LCD_WriteString(defaultTemp);
+	TIMER_delay(TIMER_2,1000);
+    LCD_Clear();
+	u8_g_applicationState++;
+	
 									break;
 			case CHOOSING_TEMP:					
+	LCD_WriteString(chooseTemp);
+	BUZZER_off(BUZZER_0);	
+	TIMER_delay(TIMER_2,500);
+	u8_g_applicationState++;
+	
 									break;
-			case IDLE_STATE:	
+			case IDLE_STATE:
+			LCD_Clear();
+	LCD_WriteString(rangeTemp);
+			keypadPressed=KEYPAD_read();
+			switch (keypadPressed)
+			{
+				case '1':
+				u8_g_defTemp++;	
+				break;
+				case '2':
+				u8_g_defTemp--;		
+				break;
+				case '3':
+			LCD_Clear();
+			LCD_WriteString(currentTemp);
+			LCD_WriteNumber(LM35_read());
+	while(LM35_read()>u8_g_defTemp)
+	{
+	BUZZER_on(BUZZER_0);
+	}
+	break;
+			 case '4':
+u8_g_applicationState=1;
+				break;
+				case '5':
+u8_g_applicationState++;				
+				break;
+				
+		default:
+		break;
+		
+			}
+				
+				
 									break;
 			case RESETTING_STATE:					
+		u8_g_defTemp=20;
+		LCD_Clear();
+		LCD_WriteString(resetTemp);
+u8_g_applicationState=2;
+TIMER_delay(TIMER_2,1000);			
 									break;
 			
 			default:				
