@@ -28,5 +28,7 @@ void APP_chooseTempMsg(void);
 
 void APP_testingTimer(void);
 void APP_callBackTestingTask (void);
+void APP_testingLm35(void);
+
 
 #endif /* APP_H_ */

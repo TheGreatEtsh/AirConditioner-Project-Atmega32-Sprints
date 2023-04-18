@@ -47,3 +47,24 @@ void APP_callBackTestingTask(void)
 {
 	DIO_toggle(PORT_A,1);
 }
+
+void APP_testingLm35(void)
+{
+	LM35_init();
+	DIO_init(PORT_B,0,OUTPUT);
+	DIO_init(PORT_B,1,OUTPUT);
+	
+	while(1)
+	{
+		if(LM35_read()>25)
+		{
+			DIO_write(PORT_B,0,HIGH);
+			DIO_write(PORT_B,1,LOW);
+		}
+		else
+		{
+			DIO_write(PORT_B,1,HIGH);
+			DIO_write(PORT_B,0,LOW);
+		}
+	}	
+}
