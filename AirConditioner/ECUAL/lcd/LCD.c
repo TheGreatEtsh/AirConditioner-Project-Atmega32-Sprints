@@ -4,8 +4,7 @@
  * Created: 4/1/2023 3:51:57 PM
  *  Author: atef
  */
-#define  F_CPU  8000000
-#include <util/delay.h>
+
 #include "LCD_Interface.h"
 #include "LCD_Cfg.h"
 
@@ -17,9 +16,9 @@ static void LCD_WriteIns(u8 u8_a_ins)
     DIO_write(PORT_B,RS,LOW);
 	DIO_WritePort(LCD_PORT,u8_a_ins);
 	 DIO_write(PORT_B,EN,HIGH);
-	_delay_ms(1);
+	TIMER_delay(TIMER_2,1);
 	 DIO_write(PORT_B,EN,LOW);
-	_delay_ms(1);
+	TIMER_delay(TIMER_2,1);
 	
 }
 
@@ -29,21 +28,21 @@ static void LCD_WriteData(u8 u8_a_data)
 	    DIO_write(PORT_B,RS,HIGH);
 	    DIO_WritePort(LCD_PORT,u8_a_data);
 	    DIO_write(PORT_B,EN,HIGH);
-	    _delay_ms(1);
+	    TIMER_delay(TIMER_2,1);
 	    DIO_write(PORT_B,EN,LOW);
-	    _delay_ms(1);
+	    TIMER_delay(TIMER_2,1);
 }
 
 
 
 void LCD_Init(void)
 {
-	_delay_ms(50);
+	TIMER_delay(TIMER_2,50);
 	
 	LCD_WriteIns(0x38);//5*7 2 lines
 	LCD_WriteIns(0x0c);//0x0c,0x0e,0x0f cursor
 	LCD_WriteIns(0x01);//clear screen
-	_delay_ms(1);
+	TIMER_delay(TIMER_2,1);
 	LCD_WriteIns(0x06);// increment DDRAM address, no shift
 	
 }
@@ -61,17 +60,17 @@ static void LCD_WriteIns(u8 u8_a_ins)
 	DIO_write(LCD_PORT,D5,GET_BIT(u8_a_ins,5));
 	DIO_write(LCD_PORT,D4,GET_BIT(u8_a_ins,4));
 	 DIO_write(LCD_PORT,EN,HIGH);
-	_delay_ms(1);
+	TIMER_delay(TIMER_2,1);
 	 DIO_write(LCD_PORT,EN,LOW);
-	_delay_ms(1);
+	TIMER_delay(TIMER_2,1);
 	DIO_write(LCD_PORT,D7,GET_BIT(u8_a_ins,3));
 	DIO_write(LCD_PORT,D6,GET_BIT(u8_a_ins,2));
 	DIO_write(LCD_PORT,D5,GET_BIT(u8_a_ins,1));
 	DIO_write(LCD_PORT,D4,GET_BIT(u8_a_ins,0));
 	DIO_write(LCD_PORT,EN,HIGH);
-	_delay_ms(1);
+	TIMER_delay(TIMER_2,1);
 	DIO_write(LCD_PORT,EN,LOW);
-	_delay_ms(1);
+	TIMER_delay(TIMER_2,1);
 }
 
 static void LCD_WriteData(u8 u8_a_data)
@@ -83,29 +82,29 @@ static void LCD_WriteData(u8 u8_a_data)
 		DIO_write(LCD_PORT,D5,GET_BIT(u8_a_data,5));
 		DIO_write(LCD_PORT,D4,GET_BIT(u8_a_data,4));
 		DIO_write(LCD_PORT,EN,HIGH);
-		_delay_ms(1);
+		TIMER_delay(TIMER_2,1);
 		DIO_write(LCD_PORT,EN,LOW);
-		_delay_ms(1);
+		TIMER_delay(TIMER_2,1);
 		DIO_write(LCD_PORT,D7,GET_BIT(u8_a_data,3));
 		DIO_write(LCD_PORT,D6,GET_BIT(u8_a_data,2));
 		DIO_write(LCD_PORT,D5,GET_BIT(u8_a_data,1));
 		DIO_write(LCD_PORT,D4,GET_BIT(u8_a_data,0));
 		DIO_write(LCD_PORT,EN,HIGH);
-		_delay_ms(1);
+		TIMER_delay(TIMER_2,1);
 		DIO_write(LCD_PORT,EN,LOW);
-		_delay_ms(1);
+		TIMER_delay(TIMER_2,1);
 }
 
 
 
 void LCD_Init(void)
 {
-	_delay_ms(50);
+	TIMER_delay(TIMER_2,50);
 	LCD_WriteIns(0x02);
 	LCD_WriteIns(0x28);//5*7 2 lines
 	LCD_WriteIns(0x0c);//0x0c,0x0e,0x0f cursor
 	LCD_WriteIns(0x01);//clear screen
-	_delay_ms(1);
+	TIMER_delay(TIMER_2,1);
 	LCD_WriteIns(0x06);// increment DDRAM address, no shift
 	
 }
@@ -141,7 +140,7 @@ void LCD_SetCursor(u8 u8_a_line,u8 u8_a_cell)
 void LCD_Clear(void)
 {
 	LCD_WriteIns(CLR_INS);
-	_delay_ms(1);
+	TIMER_delay(TIMER_2,1);
 }
 
 
@@ -186,7 +185,14 @@ void LCD_ClearLoc(u8 u8_a_line ,u8 u8_a_cell,u8 u8_a_num)
 }
 
 
-
+void LCD_WriteNumber_3D(u16 num)
+{
+	//LCD_WriteChar(((num%100000)/10000)+'0');
+	LCD_WriteChar(((num%10000)/1000)+'0');
+	LCD_WriteChar(((num%1000)/100)+'0');
+	LCD_WriteChar(((num%100)/10)+'0');
+	LCD_WriteChar(((num%10)/1)+'0');
+}
 
 
 void LCD_CustomChar(u8 u8_a_loc,u8 *u8_a_pattern)
