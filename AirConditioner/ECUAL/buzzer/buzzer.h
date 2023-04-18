@@ -9,6 +9,7 @@
 #ifndef BUZZER_H_
 #define BUZZER_H_
 
+#include "../../MCAL/dio/dio.h"
 
 #define NUMBER_OF_BUZZERS	1
 #define	BUZZER_0			0
