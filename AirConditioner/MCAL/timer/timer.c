@@ -391,34 +391,39 @@ en_timerError_t TIMER_delay(u8 u8_a_timerUsed, u32 u32_a_timeInMS)
 	}
 	else if (u8_a_timerUsed == TIMER_2)
 	{
-		TCNT2 = 0x00;
+		TIMER_stopInterrupt(TIMER_2);
 		
-		u32 tickTime = TIMER_0_PRESCALER / XTAL_FREQ;
-		u32 numberOfTicks = ((u32_a_timeInMS*1000)/tickTime);
-		u32 numberOfOverflows = numberOfTicks / 256;
-		u8 numberOfRemTicks	= numberOfTicks % 256;
+		u32 overflowCounter = 0;
+		u32 tickTime = 0;
+		u32 numberOfTicks = 0;
+		u32 numberOfOverflows = 0;
+		u8 numberOfRemTicks	= 0;
+		
+		
+		tickTime = TIMER_2_PRESCALER / XTAL_FREQ;
+		numberOfTicks = ((u32_a_timeInMS*1000)/tickTime);
+		numberOfOverflows = numberOfTicks / 256;
+		numberOfRemTicks	= numberOfTicks % 256;
 		
 		if (numberOfRemTicks)
 		{
-			TCNT2 = 256 - numberOfRemTicks;
 			numberOfOverflows++;
+			TCNT2 = 256 - numberOfRemTicks;
 		}
-		
-		u32 overflowCounter = 0;
-		
-		TIMER_start(TIMER_2);
+		else
+		{
+			TCNT2 = 0;
+		}
 		while(overflowCounter < numberOfOverflows)		
 		{
-			while(GET_BIT(TIFR, TOV2) == 0);
-			
+			while((GET_BIT(TIFR, TOV2)) == 0);
 			SET_BIT(TIFR, TOV2);
-			
 			overflowCounter++;
 		}
-		TIMER_stop(TIMER_2);
-		overflowCounter = 0;
 		
-		TCNT2 = 0x00;
+		TIMER_enableInterrupt(TIMER_2);
+		
+		
 	}
 	else
 	{
