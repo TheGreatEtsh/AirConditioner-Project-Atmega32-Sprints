@@ -10,6 +10,8 @@
 #define APP_H_
 
 #include "../ECUAL/lm35/lm35.h"
+#include "../MCAL/timer/timer.h"
+
 
 #define WELCOMING					0
 #define CHOOSING_TEMP				1
@@ -21,5 +23,10 @@ void APP_initModules(void);
 void APP_superLoop	(void);
 void APP_welcomingMsg (void);
 void APP_chooseTempMsg(void);
+
+
+
+void APP_testingTimer(void);
+void APP_callBackTestingTask (void);
 
 #endif /* APP_H_ */
