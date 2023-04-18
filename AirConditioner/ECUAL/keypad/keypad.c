@@ -30,7 +30,7 @@ void KEYPAD_init				(void)
 }
 
 
-u8	 H_KeyPad_Read				(void)
+u8	 KEYPAD_read				(void)
 {
 	u8 u8_a_keypadReading		=	0, u8_a_pinState = 0;
 	
