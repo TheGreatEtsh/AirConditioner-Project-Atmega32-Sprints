@@ -173,16 +173,6 @@ void LCD_WriteNumber(i32 i32_a_num)
 }
 
 
-void LCD_WriteBinary(u8 u8_a_num)
-{
-	i8 i;
-	for (i=7;i>=0;i--)
-	{
-		LCD_WriteChar(GET_BIT(u8_a_num,i)+'0');
-	}
-	
-}
-
 
 void LCD_ClearLoc(u8 u8_a_line ,u8 u8_a_cell,u8 u8_a_num)
 {
@@ -196,14 +186,7 @@ void LCD_ClearLoc(u8 u8_a_line ,u8 u8_a_cell,u8 u8_a_num)
 }
 
 
-void LCD_WriteNumber_3D(u16 num)
-{
-	//LCD_WriteChar(((num%100000)/10000)+'0');
-	LCD_WriteChar(((num%10000)/1000)+'0');
-	LCD_WriteChar(((num%1000)/100)+'0');
-	LCD_WriteChar(((num%100)/10)+'0');
-	LCD_WriteChar(((num%10)/1)+'0');
-}
+
 
 
 void LCD_CustomChar(u8 u8_a_loc,u8 *u8_a_pattern)
