@@ -25,6 +25,10 @@
 #define LOW				0
 #define HIGH			1
 
+#define PULLUP_DISABLE	0
+#define PULLUP_ENABLE	1
+
+
 // all driver function prototypes
 typedef enum dioError{
 	DIO_OK,
@@ -38,6 +42,6 @@ en_dioError_t DIO_init(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 u8_a_direction)
 en_dioError_t DIO_write(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 u8_a_value);		// Write data to dio
 en_dioError_t DIO_toggle(u8 u8_a_portNumber, u8 u8_a_pinNumber);						// Toggle dio 
 en_dioError_t DIO_read(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 *u8_a_value);		// Read dio
-
+en_dioError_t DIO_pinPullUp(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 pullUpState);
 
 #endif /* DIO_H_ */

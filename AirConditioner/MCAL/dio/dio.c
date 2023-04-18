@@ -139,3 +139,45 @@ en_dioError_t DIO_read(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 *u8_a_value)		/
 	}
 	return error;
 }
+
+en_dioError_t DIO_pinPullUp(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 pullUpState)
+{
+	en_dioError_t error = DIO_OK;
+	if (u8_a_pinNumber < 8)
+	{
+		switch(pullUpState)
+		{
+			case PULLUP_DISABLE:
+			switch(u8_a_portNumber)
+			{
+				case PORT_A:	CLR_BIT(PORTA, u8_a_pinNumber);		break;
+				case PORT_B:	CLR_BIT(PORTB, u8_a_pinNumber);		break;
+				case PORT_C:	CLR_BIT(PORTC, u8_a_pinNumber);		break;
+				case PORT_D:	CLR_BIT(PORTD, u8_a_pinNumber);		break;
+				default:		error = WRONG_PORT_NUMBER;			break;
+			}
+			break;
+			
+			case PULLUP_ENABLE:
+			switch(u8_a_portNumber)
+			{
+				case PORT_A:	SET_BIT(PORTA, u8_a_pinNumber);		break;
+				case PORT_B:	SET_BIT(PORTB, u8_a_pinNumber);		break;
+				case PORT_C:	SET_BIT(PORTC, u8_a_pinNumber);		break;
+				case PORT_D:	SET_BIT(PORTD, u8_a_pinNumber);		break;
+				default:		error = WRONG_PORT_NUMBER;		break;
+			}
+			break;
+			
+			default:
+			error = WRONG_VALUE;
+			break;
+		}
+	}
+	else
+	{
+		error = WRONG_PIN_NUMBER;
+	}
+	return error;
+
+}
