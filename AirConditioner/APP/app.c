@@ -103,29 +103,38 @@ void APP_superLoop (void)
 						LCD_WriteChar(4);
 					}
 				}
-				
-				switch (keypadPressed)
-				{
-					case '1':
-					if (temperature < 35)					
-					{	
-						tempChanged = 1;
-						temperature++;
-					}
-					break;
-					case '2':
-					if (temperature > 18)
+				if(keypadPressed)				
+				{	
+					switch (keypadPressed)
 					{
-						tempChanged = 1;
-						temperature--;
-					}
-					break;
-					
-					case '3':
+						case '1':
+						if (temperature < 35)
+						{
+							tempChanged = 1;
+							temperature++;
+						}
+						break;
+						case '2':
+						if (temperature > 18)
+						{
+							tempChanged = 1;
+							temperature--;
+						}
+						break;
+						
+						case '3':
 						u8_g_desiredTemp = temperature ;
 						u8_g_applicationState = IDLE_STATE;
-					break;
-					default:	break;
+						break;
+						default:
+						LCD_Clear();
+						LCD_WriteString("This operation ");
+						LCD_SetCursor(1,0);
+						LCD_WriteString(" is not allowed ");
+						TIMER_delay(TIMER_2, 500);
+						tempChanged = 1;
+						break;
+					}
 				}
 				if (u8_g_applicationState != CHOOSING_TEMP)
 				break;
@@ -162,17 +171,31 @@ void APP_superLoop (void)
 					}
 					
 				}
-				switch(keypadPressed)
+				prevTemp = currentTemp;
+				
+				if(keypadPressed)				
 				{
-					case '4':
-					u8_g_applicationState = CHOOSING_TEMP;
-					break;
-					case '5':
-					u8_g_applicationState = RESETTING_STATE;
-					break;
+					
+					switch(keypadPressed)
+					{
+						case '4':
+						u8_g_applicationState = CHOOSING_TEMP;
+						break;
+						case '5':
+						u8_g_applicationState = RESETTING_STATE;
+						break;
+						default: 
+						LCD_Clear();
+						LCD_WriteString("This operation ");
+						LCD_SetCursor(1,0);
+						LCD_WriteString(" is not allowed ");
+						TIMER_delay(TIMER_2, 500);
+						prevTemp = 0;
+						break;
+					}
 				}
 				
-				prevTemp = currentTemp;
+				
 			}
 			break;
 			
