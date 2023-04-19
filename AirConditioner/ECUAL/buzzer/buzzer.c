@@ -27,6 +27,7 @@ en_buzzerError_t	BUZZER_init		(u8 u8_a_buzzerNumber)
 en_buzzerError_t	BUZZER_on		(u8 u8_a_buzzerNumber)
 {
 	en_buzzerError_t error = BUZZER_OK;
+	
 	if (u8_a_buzzerNumber >= 0 && u8_a_buzzerNumber < NUMBER_OF_BUZZERS)
 	{
 		DIO_write(buzzerDB[u8_a_buzzerNumber].portNumber, buzzerDB[u8_a_buzzerNumber].pinNumber, HIGH);
