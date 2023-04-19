@@ -23,11 +23,12 @@
 #define RESETTING_STATE				3
 
 
+#define DEFAULT_TEMPERATURE			20
+
+
 void APP_initModules(void);
 void APP_superLoop	(void);
-void APP_welcomingMsg (void);
-void APP_chooseTempMsg(void);
-
+void APP_callBack (void);
 
 
 void APP_testingTimer(void);
