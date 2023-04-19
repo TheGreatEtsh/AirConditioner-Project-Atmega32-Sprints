@@ -6,9 +6,12 @@
  */ 
 
 
-
+#include "APP/app.h"
 int main()
 {
+	APP_initModules();
+	APP_superLoop();
+	//APP_testingTimer();
 	while (1)
 	{
 	}
