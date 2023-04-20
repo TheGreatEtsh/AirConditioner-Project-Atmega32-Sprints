@@ -7,6 +7,16 @@
 
 #include "Adc.h"
 
+
+/******************************************************************************
+* \Syntax          : void ADC_init (void)
+* \Description     : Initialize ADC according to preprocessed configured definitions.
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : None
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void ADC_init (void)
 {
 	
@@ -68,6 +78,16 @@ void ADC_init (void)
 		
 }
 
+/******************************************************************************
+* \Syntax          : void ADC_read (void)
+* \Description     : Pulls on ADC interrupt flag till it rises 
+*					 to start returning a conversion to the user
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : None
+* \Parameters (out): None
+* \Return value:   : u16		Value of the conversion 
+*******************************************************************************/
 u16 ADC_read(void)
 {
 	u16 u16_a_data = 0;

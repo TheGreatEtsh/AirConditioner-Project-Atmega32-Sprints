@@ -6,10 +6,31 @@
  */ 
 #include "Lm35.h"
 
+
+/******************************************************************************
+* \Syntax          : void LM35_init	(void)
+* \Description     : Initialize LM35 according to preprocessed configured definitions.
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : None
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void LM35_init				(void)
 {
 	ADC_init();
 }
+
+
+/******************************************************************************
+* \Syntax          : void LM35_read (void)
+* \Description     : returns Degree Celsius after Conversion
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : None
+* \Parameters (out): None
+* \Return value:   : u16		Temperature read after conversion
+*******************************************************************************/
 u16  LM35_read				(void)
 {
 	u16 u16_a_Reading		=	ADC_read();

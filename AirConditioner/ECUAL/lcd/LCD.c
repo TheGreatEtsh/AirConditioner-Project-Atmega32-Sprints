@@ -35,6 +35,15 @@ static void LCD_WriteData(u8 u8_a_data)
 
 
 
+/******************************************************************************
+* \Syntax          : void LCD_Init(void)
+* \Description     : Initialize LCD according to preprocessed configured definitions
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : None
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void LCD_Init(void)
 {
 	TIMER_delay(TIMER_2,50);
@@ -96,7 +105,15 @@ static void LCD_WriteData(u8 u8_a_data)
 }
 
 
-
+/******************************************************************************
+* \Syntax          : void LCD_Init(void)
+* \Description     : Initialize LCD according to preprocessed configured definitions
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : None
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void LCD_Init(void)
 {
 	TIMER_delay(TIMER_2,50);
@@ -111,11 +128,31 @@ void LCD_Init(void)
 
 #endif
 
-//should be send address in ddram befor this function
+
+/******************************************************************************
+* \Syntax          : void LCD_WriteChar(u8 u8_a_ch)
+* \Description     : Prints Character on LCD
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : u8_a_ch		Character to be written
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void LCD_WriteChar(u8 u8_a_ch)
 {
 	LCD_WriteData(u8_a_ch);
 }
+
+
+/******************************************************************************
+* \Syntax          : void LCD_WriteString(u8 *u8_a_str)
+* \Description     : Prints string on LCD
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : u8_a_str		string to be printed on LCD
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void LCD_WriteString(u8 *u8_a_str)
 {
 	u8 i;
@@ -125,6 +162,17 @@ void LCD_WriteString(u8 *u8_a_str)
 	}
 	
 }
+
+/******************************************************************************
+* \Syntax          : void LCD_SetCursor(u8 u8_a_line,u8 u8_a_cell)
+* \Description     : Changes Cursor’s Location
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : u8 u8_a_line		line number
+*				  	 u8 u8_a_cell		cell number
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void LCD_SetCursor(u8 u8_a_line,u8 u8_a_cell)
 {
 	if (u8_a_line==0)
@@ -137,6 +185,16 @@ void LCD_SetCursor(u8 u8_a_line,u8 u8_a_cell)
 	}
 	
 }
+
+/******************************************************************************
+* \Syntax          : void LCD_Clear(void)
+* \Description     : Clears LCD’s screen and set cursor at line 0 cell 0
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : None
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void LCD_Clear(void)
 {
 	LCD_WriteIns(CLR_INS);
@@ -144,6 +202,15 @@ void LCD_Clear(void)
 }
 
 
+/******************************************************************************
+* \Syntax          : void LCD_WriteNumber(i32 i32_a_num);
+* \Description     : Prints a specific number on LCD
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : i32_a_num		Number to printed on LCD
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void LCD_WriteNumber(i32 i32_a_num)
 {
 	u8 str[10],i=0,j;
@@ -172,7 +239,17 @@ void LCD_WriteNumber(i32 i32_a_num)
 }
 
 
-
+/******************************************************************************
+* \Syntax          : void LCD_ClearLoc(u8 u8_a_line ,u8 u8_a_cell,u8 u8_a_num);
+* \Description     : Clear specific cells from a specific location
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : u8 u8_a_line		Line Number
+*					 u8 u8_a_cell		Cell Number
+*					 u8 u8_a_num		Number of cells to be deleted from this location
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void LCD_ClearLoc(u8 u8_a_line ,u8 u8_a_cell,u8 u8_a_num)
 {
 	u8 i;
@@ -195,6 +272,15 @@ void LCD_WriteNumber_3D(u16 num)
 }
 
 
+/******************************************************************************
+* \Syntax          : void LCD_CustomChar(u8 u8_a_loc,u8 *u8_a_pattern);
+* \Description     : Creates a customized character.
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : u8 u8_a_loc, u8 *u8_a_pattern
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void LCD_CustomChar(u8 u8_a_loc,u8 *u8_a_pattern)
 {
 	LCD_WriteIns(0x40+u8_a_loc*8);
@@ -205,7 +291,16 @@ void LCD_CustomChar(u8 u8_a_loc,u8 *u8_a_pattern)
 	LCD_WriteIns(0x80);
 }
  
- 
+/******************************************************************************
+* \Syntax          : void LCD_PinsInit ();
+* \Description     : Initialize LCD pins directions according to 
+*					  preprocessed configured definitions
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : None
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
  void LCD_PinsInit ()
  {
 	 DIO_init(LCD_PORT,0,OUTPUT);

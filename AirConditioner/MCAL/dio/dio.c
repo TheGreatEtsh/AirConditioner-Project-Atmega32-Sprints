@@ -5,13 +5,22 @@
  *  Author: Ahmed Hesham
  */ 
 
-// include .h
 #include "dio.h"
 
-// global variables
-
-// functions definitions
-
+/******************************************************************************
+* \Syntax          : en_dioError_t DIO_init(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 u8_a_direction)
+* \Description     : Initializes DIO pins’ direction, output current.
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : u8_a_portNumber	port number used
+*					 u8_a_pinNumber		pin number used
+*					 u8_a_direction		direction of the pin 
+* \Parameters (out): None
+* \Return value:   : en_dioError_t		DIO_OK	
+*										WRONG_PIN_NUMBER
+*										WRONG_PORT_NUMBER
+*										WRONG_DIRECTION
+*******************************************************************************/
 
 en_dioError_t DIO_init(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 u8_a_direction)	// Initialize dio direction
 {
@@ -56,6 +65,22 @@ en_dioError_t DIO_init(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 u8_a_direction)
 	return error;
 }
 
+
+/******************************************************************************
+* \Syntax          : en_dioError_t DIO_write(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 u8_a_value)
+* \Description     : Write on DIO pins’ a specific output High or Low.
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : u8_a_portNumber	port number used
+*					 u8_a_pinNumber		pin number used
+*					 u8_a_value			output value on the pin
+* \Parameters (out): None
+* \Return value:   : en_dioError_t		DIO_OK
+*										WRONG_PIN_NUMBER
+*										WRONG_PORT_NUMBER
+*										WRONG_VALUE
+*******************************************************************************/
+
 en_dioError_t DIO_write(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 u8_a_value)		// Write data to dio
 {
 	en_dioError_t error = DIO_OK;
@@ -98,6 +123,19 @@ en_dioError_t DIO_write(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 u8_a_value)		/
 
 }
 
+
+/******************************************************************************
+* \Syntax          : en_dioError_t DIO_toggle(u8 u8_a_portNumber, u8 u8_a_pinNumber)
+* \Description     : Toggle the output of a specific pin.
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : u8_a_portNumber	port number used
+*					 u8_a_pinNumber		pin number used
+* \Parameters (out): None
+* \Return value:   : en_dioError_t		DIO_OK
+*										WRONG_PIN_NUMBER
+*										WRONG_PORT_NUMBER
+*******************************************************************************/
 en_dioError_t DIO_toggle(u8 u8_a_portNumber, u8 u8_a_pinNumber)						// Toggle dio
 {
 	en_dioError_t error = DIO_OK;
@@ -118,6 +156,20 @@ en_dioError_t DIO_toggle(u8 u8_a_portNumber, u8 u8_a_pinNumber)						// Toggle d
 	}
 	return error;
 }
+
+
+/******************************************************************************
+* \Syntax          : en_dioError_t DIO_read(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 *u8_a_value)
+* \Description     : Read input from a pin and send it back in a pointer to uint8_t
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : u8_a_portNumber	port number used
+*					 u8_a_pinNumber		pin number used
+* \Parameters (out): u8_a_value			input value will be returned in that parameter
+* \Return value:   : en_dioError_t		DIO_OK
+*										WRONG_PIN_NUMBER
+*										WRONG_PORT_NUMBER
+*******************************************************************************/
 en_dioError_t DIO_read(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 *u8_a_value)		// Read dio
 {
 	en_dioError_t error = DIO_OK;
@@ -140,6 +192,20 @@ en_dioError_t DIO_read(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 *u8_a_value)		/
 	return error;
 }
 
+
+/******************************************************************************
+* \Syntax          : en_dioError_t DIO_pinPullUp(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 pullUpState)
+* \Description     : Disables/enables a pull up resistor to a specific input pin 
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : u8_a_portNumber	port number used
+*					 u8_a_pinNumber		pin number used
+* \Parameters (out): None
+* \Return value:   : en_dioError_t		DIO_OK
+*										WRONG_PIN_NUMBER
+*										WRONG_PORT_NUMBER
+*										WRONG_VALUE
+*******************************************************************************/
 en_dioError_t DIO_pinPullUp(u8 u8_a_portNumber, u8 u8_a_pinNumber, u8 pullUpState)
 {
 	en_dioError_t error = DIO_OK;

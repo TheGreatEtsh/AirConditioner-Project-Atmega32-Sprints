@@ -7,7 +7,15 @@
 
 #include "KeyPad.h"
 
-
+/******************************************************************************
+* \Syntax          : void KEYPAD_init (void)
+* \Description     : Initialize KEYPAD according to preprocessed configured definitions
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : None
+* \Parameters (out): None
+* \Return value:   : None
+*******************************************************************************/
 void KEYPAD_init				(void)
 {
 	DIO_init(KEYPAD_R0_PORT,KEYPAD_R0_PIN,OUTPUT);
@@ -29,7 +37,17 @@ void KEYPAD_init				(void)
 	
 }
 
-
+/******************************************************************************
+* \Syntax          : u8 KEYPAD_read (void);
+* \Description     : returns 0 if there is no key pressed 
+*					 or equivalent value for the key if there is a key pressed
+* \Sync\Async      : Synchronous
+* \Reentrancy      : Reentrant
+* \Parameters (in) : None
+* \Parameters (out): None
+* \Return value:   : u8			returns 0 if there is no key pressed
+*								or equivalent value for the key if there is a key pressed
+*******************************************************************************/
 u8	 KEYPAD_read				(void)
 {
 	u8 u8_a_keypadReading		=	0, u8_a_pinState = 0;
