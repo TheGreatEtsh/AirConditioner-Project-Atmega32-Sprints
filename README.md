@@ -1,8 +1,6 @@
 # AirConditioner-Project-Atmega32-Sprints
 This project is the third project for the Automotive boot camp organized by Sprints, this project is developed by Team 6
 
-## VIDEO LINK: 
-
 ## Team Members
 - Ahmed Mohamed Hesham
 - Momen Hassan
